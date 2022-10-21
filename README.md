@@ -1,1 +1,1 @@
-Cake shop memory with laravel
+Cake shop with laravel
