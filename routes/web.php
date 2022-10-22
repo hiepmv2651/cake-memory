@@ -60,36 +60,34 @@ Route::middleware(['auth', 'usertype'])->group(function () {
     
 });
 
-Route::get('/redirect', [HomeController::class, 'redirect'])->middleware('verified');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/redirect', [HomeController::class, 'redirect']);
 
+    Route::get('/product_details/{id}', [HomeController::class, 'products_detail']);
 
+    Route::post('/add_cart/{id}', [HomeController::class, 'add_cart']);
 
+    Route::get('/show_cart', [HomeController::class, 'show_cart']);
 
+    Route::get('/delete_cart/{id}', [HomeController::class, 'delete_cart']);
 
-Route::get('/product_details/{id}', [HomeController::class, 'products_detail']);
+    Route::delete('/delete_select', [HomeController::class, 'delete_select']);
 
-Route::post('/add_cart/{id}', [HomeController::class, 'add_cart']);
+    Route::delete('/cash_order', [HomeController::class, 'cash_order']);
 
-Route::get('/show_cart', [HomeController::class, 'show_cart']);
+    Route::delete('/stripe', [HomeController::class, 'stripe']);
 
-Route::get('/delete_cart/{id}', [HomeController::class, 'delete_cart']);
+    Route::post('/stripe/{totalprice}', [HomeController::class, 'stripePost'])->name('stripe.post');
 
-Route::delete('/delete_select', [HomeController::class, 'delete_select']);
+    Route::get('/show_order', [HomeController::class, 'show_order']);
 
-Route::delete('/cash_order', [HomeController::class, 'cash_order']);
+    Route::get('/order_details/{id}', [HomeController::class, 'order_details']);
 
-Route::delete('/stripe', [HomeController::class, 'stripe']);
+    Route::get('/cancel_order/{id}', [HomeController::class, 'cancel_order']);
 
-Route::post('/stripe/{totalprice}', [HomeController::class, 'stripePost'])->name('stripe.post');
+    Route::get('/product_search', [HomeController::class, 'product_search']);
 
-Route::get('/show_order', [HomeController::class, 'show_order']);
+    Route::get('/product', [HomeController::class, 'product']);
 
-Route::get('/order_details/{id}', [HomeController::class, 'order_details']);
-
-Route::get('/cancel_order/{id}', [HomeController::class, 'cancel_order']);
-
-Route::get('/product_search', [HomeController::class, 'product_search']);
-
-Route::get('/product', [HomeController::class, 'product']);
-
-Route::get('/search_product', [HomeController::class, 'search_product']);
+    Route::get('/search_product', [HomeController::class, 'search_product']);
+});
