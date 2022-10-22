@@ -55,30 +55,45 @@
                             <label>Product title</label>
                             <input class="input_color" type="text" value="{{$data->title}}" name="title"
                                 placeholder="Write the title" required>
+                            @error('title')
+                            <p style="color: red; margin-top: 10px;">{{$message}}</p>
+                            @enderror
                         </div>
 
                         <div class="div_design">
                             <label>Product description:</label>
                             <input class="input_color" type="text" value="{{$data->description}}" name="description"
                                 placeholder="Write the description" required>
+                            @error('description')
+                            <p style="color: red; margin-top: 10px;">{{$message}}</p>
+                            @enderror
                         </div>
 
                         <div class="div_design">
                             <label>Product price:</label>
                             <input class="input_color" type="number" value="{{$data->price}}" name="price"
                                 placeholder="Write the price" required>
+                            @error('price')
+                            <p style="color: red; margin-top: 10px;">{{$message}}</p>
+                            @enderror
                         </div>
 
                         <div class="div_design">
                             <label>Discount price:</label>
                             <input class="input_color" type="number" value="{{$data->discount_price}}"
                                 name="discount_price" placeholder="Write the Discount price">
+                            @error('discount_price')
+                            <p style="color: red; margin-top: 10px;">{{$message}}</p>
+                            @enderror
                         </div>
 
                         <div class="div_design">
                             <label>Product quantity:</label>
                             <input class="input_color" type="number" value="{{$data->quantity}}" min="0" name="quantity"
                                 placeholder="Write the quantity" required>
+                            @error('quantity')
+                            <p style="color: red; margin-top: 10px;">{{$message}}</p>
+                            @enderror
                         </div>
 
                         <div class="div_design">
@@ -91,6 +106,9 @@
                                 </option>
                                 @endforeach
                             </select>
+                            @error('category')
+                            <p style="color: red; margin-top: 10px;">{{$message}}</p>
+                            @enderror
                         </div>
 
                         <div class="div_design">
@@ -98,6 +116,9 @@
                             <img style="margin: auto" height="100px" width="100px"
                                 src="{{asset('storage/'.$data->image)}}" alt="">
                             <input type="file" name="image">
+                            @error('image')
+                            <p style="color: red; margin-top: 10px;">{{$message}}</p>
+                            @enderror
                         </div>
 
                         <div class="div_design">

@@ -20,9 +20,12 @@ class AdminController extends Controller
     }
 
     public function add_category(Request $request) {
-        $data = new category;
-        $data->category_name = $request->category;
-        $data->save();
+        $data = $request->validate([
+            'category_name' => 'required|unique:categories',
+        ]);
+
+        Category::create($data);
+        
         return redirect()->back()->with('message', 'Category Added Successfully');
     }
 
@@ -39,21 +42,20 @@ class AdminController extends Controller
     }
 
     public function add_product(Request $request) {
-        $data = new product;
-
-        $data->title = $request->title;
-        $data->description = $request->description;
-        $data->category = $request->category;
-        $data->price = $request->price;
-        
-        $data->quantity = $request->quantity;
-        $data->discount_price = $request->discount_price;
+        $data = $request->validate([
+            'title' => 'required|unique:products',
+            'description' => 'required',
+            'category' => 'required',
+            'price' => 'required',
+            'quantity' => 'required',
+            'discount_price' => 'required',
+        ]);
 
         if ($request->hasFile('image')) {
-            $data->image = $request->file('image')->store('logos', 'public');
+            $data['image'] = $request->file('image')->store('logos', 'public');
         }
 
-        $data->save();
+        Product::create($data);
 
         return redirect()->back()->with('message', 'Product created successfully');
 
@@ -75,19 +77,20 @@ class AdminController extends Controller
     public function edit_product(Request $request, $id) {
         $data = product::find($id);
         
-        $data->title = $request->title;
-        $data->description = $request->description;
-        $data->category = $request->category;
-        $data->price = $request->price;
+        $value = $request->validate([
+            'title' => 'required|unique:products',
+            'description' => 'required',
+            'category' => 'required',
+            'price' => 'required',
+            'quantity' => 'required',
+            'discount_price' => 'required',
+        ]);
         
-        $data->quantity = $request->quantity;
-        $data->discount_price = $request->discount_price;
-
         if ($request->hasFile('image')) {
             $data->image = $request->file('image')->store('logos', 'public');
         }
 
-        $data->update();
+        $data->update($value);
         
         return redirect()->back()->with('message', 'Product updated successfully');
     }

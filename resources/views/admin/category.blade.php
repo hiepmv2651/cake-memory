@@ -47,8 +47,12 @@
 
                     <form action="{{url('/add_category')}}" method="POST">
                         @csrf
-                        <input type="text" class="input_color" name="category" placeholder="Write the category name">
+                        <input type="text" class="input_color" name="category_name"
+                            placeholder="Write the category name">
                         <input type="submit" class="btn btn-primary" value="Add Category" name="submit">
+                        @error('category_name')
+                        <p style="color: red; margin-top: 10px;">{{$message}}</p>
+                        @enderror
                     </form>
                 </div>
                 <br>
